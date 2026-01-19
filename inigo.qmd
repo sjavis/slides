@@ -81,7 +81,7 @@ include-in-header:
     - different place.
 :::
 ::: {.column style="text-align: center;"}
-![Tracks generated using Tempest Extremes from JFM 1950 HadGEM3 data](../images/cyclone_tracks.png){width=100%}
+![](images/TCTrack_Logo.svg){width=100%}
 
 [{{< fa brands github >}}/Cambridge-ICCS/TCTrack](https://github.com/Cambridge-ICCS/TCTrack)
 
