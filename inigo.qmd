@@ -22,7 +22,7 @@ authors:
   - name: Sam Avis
     orcid: 0000-0001-9637-9489
     affiliations: Research Software Engineer <br> ICCS - University of Cambridge
-date: "2026-01-19"
+date: "2026-01-20"
 bibliography: climate_references.bib
 include-in-header:
   - text: |
@@ -100,7 +100,16 @@ include-in-header:
 
 <!-- =============================================================================== -->
 
-## Wrapping rather than re-implementing {.smaller}
+## Wrap vs. Reimplement {.smaller}
+
+- We initially planned to reimplement the tracking algorithms in python.
+- But they had dozens of source files with many thousands of lines of code.
+- So we chose to wrap them instead.
+
+
+![](images/TE-files.png)
+
+- It is also possible for new trackers to be implemented directly in the library.
 
 <!-- =============================================================================== -->
 
