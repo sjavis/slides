@@ -237,18 +237,38 @@ tracker.to_netcdf("track_trajectories.nc")
 
 ## Documentation {.smaller}
 
-Read the docs, docstrings in code, add documentation for the wrapped codes.
+<br>
+Online documentation describing usage.
 
-![](images/read-the-docs.png){width=45% style="vertical-align: bottom;"}
-![](images/api-docs.png){width=40% style="vertical-align: bottom;"}
+![](images/docs-home.png)
 
 <!-- =============================================================================== -->
 
 ## Documentation - Tutorial {.smaller}
 
+<br><br>
+
+![](images/docs-tutorial.png)
+
 <!-- =============================================================================== -->
 
-## Documentation - Preprocessing {.smaller}
+## Documentation -<br> Tracking algorithms {.smaller}
+
+![](images/docs-algorithms.png)
+
+<!-- =============================================================================== -->
+
+## Documentation - Preprocessing data {.smaller}
+
+![](images/docs-preprocessing.png)
+
+<!-- =============================================================================== -->
+
+## Documentation - API {.smaller}
+
+<br><br>
+
+![](images/docs-api.png)
 
 <!-- =============================================================================== -->
 
