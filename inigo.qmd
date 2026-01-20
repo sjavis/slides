@@ -141,8 +141,10 @@ src/tctrack/
 
 Each tracker module contains classes for:
 
-- Input parameter lists, e.g. `TEDetectParameters`.
-- Running the tracker & outputing results, e.g. `TETracker`.
+- Input parameter lists, e.g. `DetectParameters`, `StitchParameters`,
+- Running the tracker & outputing results, e.g. `Tracker`,
+
+providing a uniform approach to all tracking algorithms.
 
 <!-- =============================================================================== -->
 
@@ -243,6 +245,40 @@ tracker.to_netcdf("track_trajectories.nc")
 
 <!-- =============================================================================== -->
 
+## TCTrack Results {.smaller}
+
+Results for 3 months of tropical cyclones JFM 1950 from HadGEM3 data
+
+:::: {.columns}
+::: {.column style="width: 50%; text-align: center;"}
+Tempest Extremes
+
+![](images/TE_Tracks.png){width=70%}
+:::
+::: {.column style="width: 50%; text-align: center;"}
+TSTORMS
+
+![](images/TSTORMS_Tracks.png){width=70%}
+:::
+::: {.column style="width: 100%; text-align: center;"}
+TRACK
+
+![](images/TRACK_Tracks.png){width=35%}
+:::
+::::
+
+## TCTrack Results {.smaller}
+
+It works in the Northern Atlantic too.
+
+:::: {.columns}
+::: {.column style="width: 100%; text-align: center;"}
+![](images/atlantic_1950.png){width=65%}
+:::
+:::
+
+<!-- =============================================================================== -->
+
 ## Docs {.smaller}
 
 <br>
@@ -285,27 +321,35 @@ Includes details of input parameters for each algorithm.
 
 <!-- =============================================================================== -->
 
-## TCTrack Output {.smaller}
+## Docs - Contributing {.smaller}
 
-Results for 3 months of tropical cyclones JFM 1950 from HadGEM3 data
+<br>
+Community contributions are encouraged and guided.
 
-:::: {.columns}
-::: {.column style="width: 50%; text-align: center;"}
-Tempest Extremes
+![](images/docs-contributing.png)
 
-![](images/TE_Tracks.png){width=70%}
+<!-- =============================================================================== -->
+
+## Development Process {.smaller}
+
+- Development organised using a Kanban project board.
+- Provides prioritisation of tasks and those left for future work.
+
+![](images/kanban.png){width=100%}
+
+<!-- =============================================================================== -->
+
+## Testing and Continuous Integration {.smaller}
+
+Unit tests to verify additions to the code
+
+Testing and code quality checks run continuously using GitHub Actions
+
+:::{.r-stack}
+![](images/tests.png){style="width: 60%; display: block; margin: 1em auto;"}
+
+![](images/CI.png){style="width: 65%; display: block; margin: 1em auto;" .fragment}
 :::
-::: {.column style="width: 50%; text-align: center;"}
-TSTORMS
-
-![](images/TSTORMS_Tracks.png){width=70%}
-:::
-::: {.column style="width: 100%; text-align: center;"}
-TRACK
-
-![](images/TRACK_Tracks.png){width=35%}
-:::
-::::
 
 <!-- =============================================================================== -->
 
@@ -522,49 +566,38 @@ variables:
 
 <!-- =============================================================================== -->
 
-## Development Process {.smaller}
-
-- Development organised using a Kanban project board.
-- Provides prioritisation of tasks and those left for future work.
-
-![](images/kanban.png){width=100%}
-
-<!-- =============================================================================== -->
-
-## Testing and Continuous Integration {.smaller}
-
-Unit tests to verify additions to the code
-
-Testing and code quality checks run continuously using GitHub Actions
-
-:::{.r-stack}
-![](images/tests.png){style="width: 60%; display: block; margin: 1em auto;"}
-
-![](images/CI.png){style="width: 65%; display: block; margin: 1em auto;" .fragment}
-:::
-
-<!-- =============================================================================== -->
-
 ## Outreach {.smaller}
 
 TCTrack has been presented at the following:
 
-- CF-Conventions annual Meeting 2025
+- [CF-Conventions 2025 Annual Workshop](https://cfconventions.org/Meetings/2025-Workshop.html) (invited talk)
 - Internal presentation to ICCS 
-- Presentation to INIGO Quarterly meetings
-- Poster submission to European Geosciences Union 2026 in _"Integrated advances in tropical cyclones: linking physics, impacts, risks and adaptation"_
+- INIGO Quarterly meetings
 
-We intend to submit a publication to JOSS (Journal of Open Source Software) and present the work at RSECon as an example of facilitating FAIR data practices in science and industry.
+Future:
+
+- Submission to European Geosciences Union 2026\ _"Integrated advances in tropical cyclones: linking physics, impacts, risks and adaptation"_
+- JOSS and RSECon Submission
+
+![](images/JOSS_logo.jpg){style="width: 20%;" .absolute bottom=70% right=15%}
+![](images/EGU_logo.svg){style="width: 20%;" .absolute bottom=50% right=5%}
 
 Support in publicising this work and finding new users and contributors is appreciated.
 
 <!-- =============================================================================== -->
 
-## Future Work - MPhil projects {.smaller}
+## Future Work - Applications {.smaller}
 
-- Use TCTrack on CMIP data to look at intensity and frequency of storms.
+TCTrack will be used in MPhil projects at Cambridge
+
+- Use TCTrack on CMIP data to look at
+  - intensity and frequency of storms
+  - using different tracking approaches
+  - on different data sets
+- in an updated analysis of @knutson2015global.
 - Larger scale test of the package.
 - Identify potential areas for improvement.
+- Results will contribute to EGU poster.
 
 <!-- =============================================================================== -->
 
@@ -572,9 +605,10 @@ Support in publicising this work and finding new users and contributors is appre
 ## Future Work - Development {.smaller}
 
 - Publish the package on PyPI and conda-forge
-- Fix the TRACK algorithm
+- Tune parameters of the TRACK algorithm
 - Wrap further storm tracking softwares
-- Implement new tracking approaches in development by researchers
+  - cytrack
+  - Robert's ML algorithm
 - Basic visualisation using [huracanpy](https://github.com/Huracan-project/huracanpy)
 - Development of storm tracks web-dashboard by project partners
 
@@ -617,17 +651,21 @@ Get in touch:
 ::: {.column style="width: 60%; vertical-align: bottom;"}
 <br>
 
-Thanks to Alison Ming
+Thanks to Alison Ming and\
+Charles Powell
 
 \
 
-The ICCS received support from the<br>Inigo InSPIRe project
+The ICCS received support from\
+![](images/inigo_inspire.png){height=2.4em style="margin: 0; vertical-align: -2%"}
 :::
 ::::
 
 <!-- ![](https://iccs.cam.ac.uk/files/logo2_2.png){style="width: 20%; height: 30%; object-fit: cover; object-position: 0 0;" .absolute top=33% right=5%} -->
+
 ![]( images/ICCS_Cambridge_small.png ){style="width: 20%; height: 30%; object-fit: cover; object-position: 0 0;" .absolute top=33% right=5%}
 
+![](images/TCTrack_Logo.svg){style="width: 20%;" .absolute bottom=15% right=5%}
 
 ## References
 
