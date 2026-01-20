@@ -553,9 +553,10 @@ Support in publicising this work and finding new users and contributors is appre
 
 ## Future Work - Development {.smaller}
 
+- Publish the package on PyPI and conda-forge
+- Fix the TRACK algorithm
 - Wrap further storm tracking softwares
 - Implement new tracking approaches in development by researchers
-- Handle input data to be more faIR
 - Basic visualisation using [huracanpy](https://github.com/Huracan-project/huracanpy)
 - Development of storm tracks web-dashboard by project partners
 
