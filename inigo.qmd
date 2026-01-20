@@ -47,7 +47,7 @@ include-in-header:
   - TSTORMS,
   - CyTrack, etc.
 
-![Tracks generated using Tempest Extremes from JFM 1950 HadGEM3 data](../images/cyclone_tracks.png){style="width: 80%; text-align: center;"}
+![Tracks generated using Tempest Extremes from JFM 1950 HadGEM3 data](images/cyclone_tracks.png){style="width: 80%; text-align: center;"}
 :::
 ::: {.column style="width: 45%; text-align: center;"}
 - Generic approach: detect and stitch
@@ -304,7 +304,7 @@ FAIR data and software is increasingly important:
 
 :::
 ::: {.column .v-center-container style="text-align: center;"}
-![]( ../images/better_software_better_research.jpg ){width=100%}
+![]( images/better_software_better_research.jpg ){width=100%}
 
 
 :::
@@ -599,7 +599,7 @@ The ICCS received support from the<br>Inigo InSPIRe project
 ::::
 
 <!-- ![](https://iccs.cam.ac.uk/files/logo2_2.png){style="width: 20%; height: 30%; object-fit: cover; object-position: 0 0;" .absolute top=33% right=5%} -->
-![](https://github.com/Cambridge-ICCS/handbook/blob/9aae79eef7fac90373e3345456e27ee1a31f9179/templates/_Final%20logos/Logo%20on%20its%20own.png){style="width: 20%; height: 30%; object-fit: cover; object-position: 0 0;" .absolute top=33% right=5%}
+![]( images/ICCS_Cambridge_small.png ){style="width: 20%; height: 30%; object-fit: cover; object-position: 0 0;" .absolute top=33% right=5%}
 
 
 ## References
