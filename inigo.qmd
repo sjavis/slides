@@ -42,10 +42,10 @@ include-in-header:
 :::: {.columns}
 ::: {.column width="55%"}
 - Several cyclone tracking software tools exist:
-  - Tempest Extremes,
-  - TRACK,
-  - TSTORMS,
-  - CyTrack, etc.
+  - Tempest Extremes [@ullrich2021tempestextremes],
+  - TRACK [@hodges2017well],
+  - TSTORMS [@vitart2001seasonal],
+  - etc.
 
 ![Tracks generated using Tempest Extremes from JFM 1950 HadGEM3 data](images/cyclone_tracks.png){style="width: 80%; text-align: center;"}
 :::
@@ -529,15 +529,20 @@ Testing and code quality checks run continuously using GitHub Actions
 
 ## Outreach {.smaller}
 
-- Poster EGU
+TCTrack has been presented at the following:
+
+- CF-Conventions annual Meeting 2025
+- Internal presentation to ICCS 
+- Presentation to INIGO Quarterly meetings
+- Poster submission to European Geosciences Union 2026 in _"Integrated advances in tropical cyclones: linking physics, impacts, risks and adaptation"_
+
+We intend to submit a publication to JOSS (Journal of Open Source Software) and present the work at RSECon as an example of facilitating FAIR data practices in science and industry.
+
+Support in publicising this work and finding new users and contributors is appreciated.
 
 <!-- =============================================================================== -->
 
 ## Future Work - MPhil {.smaller}
-
-<!-- =============================================================================== -->
-
-## Future Work - JOSS paper {.smaller}
 
 <!-- =============================================================================== -->
 
