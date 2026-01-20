@@ -1,6 +1,6 @@
 ---
 output-file: index
-title: "The TCTrack Software for Cyclone Tracking"
+title: "<br><br>Software for Cyclone Tracking"
 format:
   revealjs:
     embed-resources: false
@@ -34,6 +34,14 @@ include-in-header:
       #title-slide .authors {
         font-size: 1.0em;
       }
+      #title-slide .title::before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 550px;
+        height: 175px;
+        background: url('images/TCTrack_Logo.svg') no-repeat center/contain;
+      }
       </style>
 ---
 
@@ -56,7 +64,7 @@ include-in-header:
   - data representation
   - licensing
   - code
-  - documentation (or not)
+  - documentation (or not...)
 :::
 ::::
 
@@ -81,7 +89,7 @@ include-in-header:
     - different place.
 :::
 ::: {.column style="text-align: center;"}
-![](images/TCTrack_Logo.svg){width=100%}
+![](images/TCTrack_Logo.svg){width=80%}
 
 [{{< fa brands github >}}/Cambridge-ICCS/TCTrack](https://github.com/Cambridge-ICCS/TCTrack)
 
@@ -235,7 +243,7 @@ tracker.to_netcdf("track_trajectories.nc")
 
 <!-- =============================================================================== -->
 
-## Documentation {.smaller}
+## Docs {.smaller}
 
 <br>
 Online documentation describing usage.
@@ -244,7 +252,7 @@ Online documentation describing usage.
 
 <!-- =============================================================================== -->
 
-## Documentation - Tutorial {.smaller}
+## Docs - Tutorial {.smaller}
 
 <br><br>
 
@@ -252,21 +260,26 @@ Online documentation describing usage.
 
 <!-- =============================================================================== -->
 
-## Documentation -<br> Tracking algorithms {.smaller}
+## Docs - Algorithms {.smaller}
+
+<br><br>
 
 ![](images/docs-algorithms.png)
 
 <!-- =============================================================================== -->
 
-## Documentation - Preprocessing data {.smaller}
+## Docs - Preprocessing data {.smaller}
+
+<br><br>
 
 ![](images/docs-preprocessing.png)
 
 <!-- =============================================================================== -->
 
-## Documentation - API {.smaller}
+## Docs - [User API](https://tctrack.readthedocs.io/en/latest/api/index.html) {.smaller}
 
-<br><br>
+<br>
+Includes details of input parameters for each algorithm.
 
 ![](images/docs-api.png)
 
@@ -280,12 +293,17 @@ Results for 3 months of tropical cyclones JFM 1950 from HadGEM3 data
 ::: {.column style="width: 50%; text-align: center;"}
 Tempest Extremes
 
-![](images/TE_Tracks.png){width=80%}
+![](images/TE_Tracks.png){width=70%}
 :::
 ::: {.column style="width: 50%; text-align: center;"}
+TSTORMS
+
+![](images/TSTORMS_Tracks.png){width=70%}
+:::
+::: {.column style="width: 100%; text-align: center;"}
 TRACK
 
-![](images/TRACK_Tracks.png){width=80%}
+![](images/TRACK_Tracks.png){width=35%}
 :::
 ::::
 
@@ -351,35 +369,33 @@ CF Field flowchart from the cf-python documentation
 
 <!-- =============================================================================== -->
 
-## Raw Output Data: TE GFDL {.smaller}
+## Raw Output Data: TSTORMS {.smaller}
 
 :::{style="font-size: 0.85em; white-space: pre;"}
 ```plaintext
-start   16      1950    1       1       6
-        572     320     201.269531      -14.882813      1.003118e+05    0.000000e+00    1.389075e+01    1950    1       1       6
-        569     318     200.214844      -15.351562      1.001075e+05    0.000000e+00    1.546506e+01    1950    1       1       12
-        567     317     199.511719      -15.585937      1.001445e+05    0.000000e+00    1.590697e+01    1950    1       1       18
-        565     320     198.808594      -14.882813      1.000154e+05    0.000000e+00    1.531368e+01    1950    1       2       0
-        563     321     198.105469      -14.648438      1.001127e+05    0.000000e+00    1.522812e+01    1950    1       2       6
-        555     321     195.292969      -14.648438      1.001399e+05    0.000000e+00    1.413657e+01    1950    1       3       0
+start     2  1950     1     4     0
+   54.67  -22.15   16.65  999.23   0.00027446  1950     1     4     0
+   55.72  -24.49   17.38  997.83   0.00031078  1950     1     5     0
+start    13  1950     1     6     0
+   67.32   -9.26   17.90 1002.11   0.00065708  1950     1     6     0
+   67.68   -9.26   15.32 1003.88   0.00044106  1950     1     7     0
 
 ...
 
-start   22      1950    1       1       6
-        163     332     57.480469       -12.070312      1.005820e+05    0.000000e+00    1.153856e+01    1950    1       1       6
-        161     327     56.777344       -13.242188      1.003331e+05    0.000000e+00    9.956528e+00    1950    1       1       12
-        158     324     55.722656       -13.945312      1.005362e+05    0.000000e+00    1.123346e+01    1950    1       1       18
-        157     322     55.371094       -14.414062      1.001472e+05    0.000000e+00    1.184854e+01    1950    1       2       0
-        156     317     55.019531       -15.585937      1.003412e+05    0.000000e+00    1.290700e+01    1950    1       2       6
-        155     311     54.667969       -16.992188      1.001394e+05    0.000000e+00    1.204769e+01    1950    1       2       12
+start     4  1950     1     8     0
+   41.31  -17.23   18.26  996.48   0.00078623  1950     1     8     0
+   41.31  -17.93   16.40  996.75   0.00065824  1950     1     9     0
+   40.25  -18.40   12.33 1000.01   0.00043762  1950     1    10     0
+   37.44  -18.63   12.80 1001.78   0.00039998  1950     1    11     0
 
 ...
+
 ```
 :::
 
 <!-- =============================================================================== -->
 
-## Raw Output Data: TE CSV {.smaller}
+## Raw Output Data: TE {.smaller}
 
 :::{style="font-size: 0.85em; white-space: pre;"}
 ```plaintext
@@ -438,6 +454,8 @@ variables:
 <!-- =============================================================================== -->
 
 ## CF-Compliant Output Data {.smaller}
+
+All TCTrack outputs are CF-Compliant NetCDF as follows:
 
 :::{style="font-size: 0.85em; white-space: pre;"}
 ```json
