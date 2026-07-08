@@ -1,0 +1,370 @@
+---
+output-file: index
+title: "<br><br>TCTrack: A Python library for Cyclone Tracking"
+format:
+  revealjs:
+    embed-resources: false
+    slide-number: false
+    chalkboard: false
+    preview-links: auto
+    history: false
+    highlight-style: a11y
+    code-overflow: wrap
+    code-line-numbers: false
+    logo: https://iccs.cam.ac.uk/files/iccs_ucam_combined_reverse_colour.png
+    theme: [dark, custom.scss]
+revealjs-plugins:
+  - attribution
+authors:
+  - name: Sam Avis
+    # orcid: 0000-0001-9637-9489
+    # affiliations: Research Software Engineer <br> ICCS - University of Cambridge
+  - name: Surbhi Goel
+    # orcid: ...
+    # affiliations: Research Software Engineer <br> ICCS - University of Cambridge
+  - name: Simon Sadler
+    # orcid: ...
+    # affiliations: Research Software Engineer <br> ICCS - University of Cambridge
+  - name: Marion Weinzierl
+  # - name: Jack Atkinson
+  #   orcid: 0000-0001-5001-4812
+  #   affiliations: Principal Research Software Engineer <br> ICCS - University of Cambridge
+date: "2026-05-20"
+bibliography: climate_references.bib
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 1.25em;
+        color: #ffffff;
+      }
+      #title-slide .authors {
+        font-size: 1.0em;
+      }
+      #title-slide .title::before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 550px;
+        height: 175px;
+        background: url('images/TCTrack_Logo.svg') no-repeat center/contain;
+      }
+      </style>
+---
+
+## Cyclone Tracking {.smaller}
+
+:::: {.columns}
+::: {.column width="55%"}
+- Several cyclone tracking software tools exist:
+  - Tempest Extremes [@ullrich2021tempestextremes],
+  - TRACK [@hodges2017well],
+  - TSTORMS [@vitart2001seasonal],
+  - etc.
+
+![Tracks generated using Tempest Extremes from JFM 1950 HadGEM3 data](images/cyclone_tracks.png){style="width: 80%; text-align: center;"}
+:::
+::: {.column style="width: 45%; text-align: center;"}
+- Generic approach: detect and stitch
+- Each has its own:
+  - implementation
+  - data representation
+  - licensing
+  - code
+  - documentation (or not...)
+:::
+::::
+
+:::{.notes}
+- Explain the diversity of cyclone tracking software and the challenges of inconsistent data representations.
+- Classic antipattern in research software - developed to do the single thing required ta that time as easilyt as possible.
+:::
+
+<!-- =============================================================================== -->
+
+## TCTrack {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+- TCTrack aims to provide:
+  - Unified interface for different algorithms,
+  - Standardised CF-compliant outputs,
+      - As [Trajectory format H4(.1)](https://cfconventions.org/Data/cf-conventions/cf-conventions-1.11/cf-conventions.html#trajectory-data) from CF conventions.
+      - Using [`cf-python`](https://ncas-cms.github.io/cf-python/) library
+  - Data for repeated use:
+    - different time,
+    - different place.
+:::
+::: {.column style="text-align: center;"}
+![](images/TCTrack_Logo.svg){width=80%}
+
+[{{< fa brands github >}}/Cambridge-ICCS/TCTrack](https://github.com/Cambridge-ICCS/TCTrack)
+
+[{{< fa solid book >}} tctrack.readthedocs.io](https://tctrack.readthedocs.io/en/latest/)
+
+:::
+::::
+
+:::{.notes}
+- Highlight TCTrack's goals:
+  - Unified interface for multiple algorithms.
+  - Standardized CF-compliant outputs.
+  - Use of the Trajectory format H4 from CF conventions.
+- Mention that examples of input and output formats will follow in later slides.
+:::
+
+<!-- <!-1- =============================================================================== -1-> -->
+
+<!-- ## TCTrack flowchart {.smaller} -->
+
+<!-- ```{mermaid} -->
+<!-- flowchart LR -->
+
+<!-- %% Sections -->
+<!-- subgraph U["User"] -->
+<!--     U1[Upload data] -->
+<!--     U2[Adjust parameters] -->
+<!--     U3[View results] -->
+<!-- end -->
+
+<!-- subgraph T["TCTrack"] -->
+<!--     T1[Preprocessing] -->
+<!--     T2[Batch management] -->
+<!--     T3[Visualisation dashboard] -->
+<!-- end -->
+
+<!-- subgraph A["Tracking Algorithm"] -->
+<!--     A1[Feature detection] -->
+<!--     A2[Track association] -->
+<!--     A3[Statistics computation] -->
+<!-- end -->
+
+<!-- %% Connections -->
+<!-- U1 -1-> T1 -->
+<!-- U2 -1-> T2 -->
+
+<!-- T1 -1-> A1 -->
+<!-- T2 -1-> A2 -->
+<!-- A1 -1-> A2 -->
+<!-- A2 -1-> A3 -->
+
+<!-- A3 -1-> T3 -->
+<!-- T3 -1-> U3 -->
+<!-- ``` -->
+
+<!-- =============================================================================== -->
+
+## Code Usage {.smaller}
+
+::: {.panel-tabset}
+
+## Tempest Extremes
+
+```python
+from tctrack import tempest_extremes as te
+
+# Define tracker parameters
+dn_params = te.TEDetectParameters(
+    in_data=["psl_data.nc", "zg_data.nc", "orog_data.nc", "sfcWind_data.nc"],
+    search_by_min="psl",
+    time_filter="6hr",
+    ...
+)
+
+sn_params = te.TEStitchParameters(
+    caltype="360_day",
+    max_sep=8.0,
+    min_time="54h",
+    ...
+)
+
+# Create and run tracker
+tracker = te.TETracker(dn_params, sn_params)
+tracker.run_tracker("te_trajectories.nc")
+
+# Alternatively, run manually
+tracker.detect()
+tracker.stitch()
+tracker.to_netcdf("te_trajectories.nc")
+```
+
+## TSTORMS
+
+```python
+from tctrack import tstorms
+
+# Define tracker parameters
+tstorms_params = tstorms.TSTORMSBaseParameters(
+    tstorms_dir="path/to/tstorms/installation/",
+    output_dir="path/to/place/outputs/",
+    input_dir="path/to/input/files/",
+)
+
+detect_params = tstorms.TSTORMSDetectParameters(
+    vort_crit=3.5e-5,
+    tm_crit=0.0,
+    thick_crit=50.0,
+    ...
+)
+
+stitch_params = tstorms.TSTORMSStitchParameters(
+    r_crit=900.0,
+    wind_crit=17.0,
+    ...
+)
+
+# Create and run tracker
+tracker = tstorms.TSTORMSTracker(tstorms_params, detect_params, stitch_params)
+tracker.run_tracker("tstorms_trajectories.nc")
+
+# Alternatively, run manually
+tracker.detect()
+tracker.stitch()
+tracker.to_netcdf("tstorms_trajectories.nc")
+```
+
+## TRACK
+
+```python
+from tctrack.track import TRACKParameters, TRACKTracker
+
+# Define tracker parameters
+params = TRACKParameters(
+    base_dir="/path/to/track",
+    input_file="ua_va_file_F256.nc",
+    wind_var_names=("ua", "va"),
+)
+
+# Create and run tracker
+tracker = TRACKTracker(params)
+tracker.run_tracker("track_trajectories.nc")
+
+# Alternatively, run manually
+tracker.calculate_vorticity()
+tracker.spectral_filtering()
+tracker.tracking()
+tracker.filter_trajectories()
+tracker.to_netcdf("track_trajectories.nc")
+```
+
+:::
+
+<!-- =============================================================================== -->
+
+## CF-Compliant Output Data {.smaller}
+
+All TCTrack outputs are CF-Compliant NetCDF as follows:
+
+:::{style="font-size: 0.85em; white-space: pre;"}
+```json
+netcdf my_cf_tracks {
+dimensions:
+        trajectory = 36 ;
+        observation = 60 ;
+variables:
+        int64 trajectory(trajectory) ;
+                trajectory:standard_name = "trajectory" ;
+                trajectory:cf_role = "trajectory_id" ;
+                trajectory:long_name = "trajectory index" ;
+        int64 observation(observation) ;
+                observation:standard_name = "observation" ;
+                observation:long_name = "observation index" ;
+        double time(trajectory, observation) ;
+                time:standard_name = "time" ;
+                time:long_name = "time" ;
+                time:units = "days since 1970-01-01" ;
+                time:calendar = "360_day" ;
+        double lat(trajectory, observation) ;
+                lat:standard_name = "lat" ;
+                lat:long_name = "latitude" ;
+                lat:units = "degrees_north" ;
+        double lon(trajectory, observation) ;
+                lon:standard_name = "lon" ;
+                lon:long_name = "longitude" ;
+                lon:units = "degrees_east" ;
+        double grid_i(trajectory, observation) ;
+                grid_i:long_name = "longitudinal grid index" ;
+                grid_i:coordinates = "time lat lon" ;
+        double grid_j(trajectory, observation) ;
+                grid_j:long_name = "latitudinal grid index" ;
+                grid_j:coordinates = "time lat lon" ;
+        double air_pressure_at_sea_level(trajectory, observation) ;
+                air_pressure_at_sea_level:standard_name = "air_pressure_at_sea_level" ;
+                air_pressure_at_sea_level:long_name = "Sea Level Pressure" ;
+                air_pressure_at_sea_level:units = "Pa" ;
+                air_pressure_at_sea_level:coordinates = "time lat lon" ;
+                air_pressure_at_sea_level:cell_methods = "area: point" ;
+        double surface_altitude(trajectory, observation) ;
+                surface_altitude:standard_name = "surface_altitude" ;
+                surface_altitude:long_name = "Surface Altitude" ;
+                surface_altitude:units = "m" ;
+                surface_altitude:coordinates = "time lat lon" ;
+                surface_altitude:cell_methods = "area: point" ;
+        double wind_speed(trajectory, observation) ;
+                wind_speed:standard_name = "wind_speed" ;
+                wind_speed:long_name = "Near-Surface Wind Speed" ;
+                wind_speed:units = "m s-1" ;
+                wind_speed:coordinates = "time lat lon" ;
+                wind_speed:cell_methods = "area: maximum (great circle of radius 2.0 degrees)" ;
+
+// global attributes:
+                :Conventions = "CF-1.12" ;
+                :featureType = "trajectory" ;
+                :tctrack_version = "0.1.dev155+gbe2798b37" ;
+                :tctrack_tracker = "TETracker" ;
+                :detect_nodes_parameters = "{\"in_data\": [\"psl_data.nc\", \"zg_data.nc\", \"orog_data.nc\", \"sfcWind_data.nc\"], \"out_header\": true, \"output_file\": \"nodes_out.dat\", \"search_by_min\": \"psl\", \"search_by_max\": null, \"closed_contours\": [{\"var\": \"psl\", \"delta\": 200.0, \"dist\": 5.5, \"minmaxdist\": 0.0}, {\"var\": \"zgdiff\", \"delta\": -6.0, \"dist\": 6.5, \"minmaxdist\": 1.0}], \"merge_dist\": 6.0, \"time_filter\": \"6hr\", \"lat_name\": \"lat\", \"lon_name\": \"lon\", \"min_lat\": 0.0, \"max_lat\": 0.0, \"min_lon\": 0.0, \"max_lon\": 0.0, \"regional\": false, \"output_commands\": [{\"var\": \"psl\", \"operator\": \"min\", \"dist\": 0.0}, {\"var\": \"orog\", \"operator\": \"max\", \"dist\": 0.0}, {\"var\": \"sfcWind\", \"operator\": \"max\", \"dist\": 2.0}]}" ;
+                :stitch_nodes_parameters = "{\"output_file\": \"tracks_out.txt\", \"in_file\": \"nodes_out.dat\", \"in_list\": null, \"in_fmt\": [\"lon\", \"lat\", \"psl\", \"orog\", \"sfcWind\"], \"allow_repeated_times\": false, \"caltype\": \"360_day\", \"time_begin\": null, \"time_end\": null, \"max_sep\": 8.0, \"max_gap\": \"24h\", \"min_time\": \"54h\", \"min_endpoint_dist\": 8.0, \"min_path_dist\": 0, \"threshold_filters\": [{\"var\": \"lat\", \"op\": \"<=\", \"value\": 50, \"count\": 10}, {\"var\": \"lat\", \"op\": \">=\", \"value\": -50, \"count\": 10}, {\"var\": \"orog\", \"op\": \"<=\", \"value\": 150, \"count\": 10}, {\"var\": \"sfcWind\", \"op\": \">=\", \"value\": 10, \"count\": 10}], \"prioritize\": null, \"add_velocity\": false, \"out_file_format\": \"gfdl\", \"out_seconds\": false}" ;
+}
+```
+:::
+
+<!-- =============================================================================== -->
+
+## Releases & Presenting {.smaller}
+
+<br>
+
+- Released on PYPI
+
+<br>
+
+- Intend to release on conda-forge
+
+<br>
+
+- Jack presented a poster at EGU
+
+<br>
+
+- JOSS x RSECon software submission
+
+<!-- =============================================================================== -->
+
+## Ongoing Work {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<br><br>
+- Batching & Preprocessing
+
+<br><br><br><br>
+- Computing statistics
+:::
+
+::: {.column width="50%"}
+<br><br>
+- Integrate ML detection algorithm
+
+<br><br><br><br>
+- Dashboard / Visualisation
+:::
+
+::::
+
+<!-- =============================================================================== -->
+
+## References
+
+::: {#refs}
+:::
