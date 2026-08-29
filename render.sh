@@ -52,7 +52,7 @@ render_static_slides() {
 # Change CWD to the directory of this script
 cd "$(dirname "$0")"
 
-SLIDES_ENTRY_POINT="index.qmd"
+SLIDES_ENTRY_POINT="tctrack.qmd"
 
 USE_LOOP=0
 
