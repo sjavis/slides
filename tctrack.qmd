@@ -1,0 +1,97 @@
+---
+output-file: index
+title: "<br><br>TCTrack: A Python library for Cyclone Tracking"
+format:
+  revealjs:
+    embed-resources: false
+    slide-number: false
+    chalkboard: false
+    preview-links: auto
+    history: false
+    highlight-style: a11y
+    code-overflow: wrap
+    code-line-numbers: false
+    logo: https://iccs.cam.ac.uk/files/iccs_ucam_combined_reverse_colour.png
+    theme: [dark, custom.scss]
+revealjs-plugins:
+  - attribution
+authors:
+  - name: Sam Avis
+    # orcid: 0000-0001-9637-9489
+    # affiliations: Research Software Engineer <br> ICCS - University of Cambridge
+  - name: Surbhi Goel
+    # orcid: ...
+    # affiliations: Research Software Engineer <br> ICCS - University of Cambridge
+  - name: Simon Sadler
+    # orcid: ...
+    # affiliations: Research Software Engineer <br> ICCS - University of Cambridge
+  - name: Jack Atkinson
+    # orcid: 0000-0001-5001-4812
+    # affiliations: Principal Research Software Engineer <br> ICCS - University of Cambridge
+date: "2026-09-10"
+bibliography: climate_references.bib
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 1.25em;
+        color: #ffffff;
+      }
+      #title-slide .authors {
+        font-size: 1.0em;
+      }
+      #title-slide .title::before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        width: 550px;
+        height: 175px;
+        background: url('images/TCTrack_Logo.svg') no-repeat center/contain;
+      }
+      </style>
+---
+
+## TCTrack
+
+# Background (1 mins)
+TCTrack - identify tropical cyclone tracks from gridded data (simulations, forecasts,
+historical reanalysis)
+Present the problem to be addressed by TCTrack:
+- Multiple tracking algorithms exist, we want a code with a unified interface that
+  implements them as described in papers.
+
+# Applying RSE experience (2 mins)
+
+- The PI didn't have full knowledge of the existing domain software - planning to reinvent the wheel.
+- At the same time, the existing software was often poorly documented or tailored to specific systems.
+- Used RSE expertise to understand how they work and how best to utilise them.
+- We produced a framework for wrapping existing algorithms (very brief overview).
+- The framework is designed to be easily extensible to encourage others to contribute.
+Message: Through RSE support we were able to create a more useful community software.
+
+# Building domain experience (3 mins)
+- Gained an understanding of the tracking algorithms rather than treating them as a black box.
+- We were able to identify cross-cutting themes across different code, e.g. broadly
+  three steps in tracking algorithms - preprocessing, detection, stitching.
+- We can then decide which parameters and functionality we need to expose.
+- Equally, we wanted to make it simple to use - e.g. default parameter sets.
+- Can only make the balance only with a good understanding of how the software works and how it is used in research.
+Message: By building domain knowledge we were able to improve ease of use for the researchers.
+
+# Producing FAIR research outputs (4 mins)
+- (Following on) Use knowledge of domain-relevant file formats (CF-netcdf) to create unified outputs.
+- Again build on existing software by heavily reling on cf-python. (thanks to the NCAS RSE team!)
+- Add detailed metadata using input files to make outputs FAIR.
+- (Mention that I'm sure others have had an experience where you can't remember how
+  some results were generated. We had one such issue when developing TCTrack which
+  prompted us to include the TCTrack version in the metadata)
+- Able to read in the metadata to easily and fully reproduce the results.
+Message: Creating a standardised and FAIR output format improves usability of research outputs.
+
+## Brief presentation of dashboard (2 mins)
+(As an example of ongoing work enabled by these unified output formats)
+
+## Conclusion (1 min)
+- Through RSE support we were able to create a more useful community software.
+- By building domain knowledge we were able to improve ease of use for the researchers.
+- Utilising standardised and FAIR output formats improves usability of research outputs.
