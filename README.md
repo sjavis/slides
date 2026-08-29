@@ -1,6 +1,11 @@
-Each set of slides is in a separate branch.
+To render the slides use the `render.sh` script. They will be put in the `_slides`
+directory.
+```
+./render.sh slides.qmd
+```
+To automatically update the slides when any files are changed use the `-l` argument:
 
-If you want just a single set of slides use:
 ```
-git clone --branch branch-name --single-branch https://github.com/sjavis/slides.git
+./render.sh -l slides.qmd
 ```
+Quarto must be installed, as must `watchexec` to use the `-l` argument.
