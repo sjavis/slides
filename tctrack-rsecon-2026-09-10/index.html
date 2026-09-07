@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="tctrack_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tctrack_files/libs/quarto-html/tabby.min.js"></script>
+<script src="tctrack_files/libs/quarto-html/popper.min.js"></script>
+<script src="tctrack_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="tctrack_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tctrack_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="tctrack_files/libs/quarto-html/quarto-syntax-highlighting-44272a84a3ebc923ced403e713a2c824.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.23">
+
+  <meta name="dcterms.date" content="2026-09-10">
+  <title> TCTrack: Working with researchers to enable FAIR tropical cyclone tracking</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="tctrack_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="tctrack_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="tctrack_files/libs/revealjs/dist/theme/quarto-2b7c8d35407a093c3c284c0e05e01722.css">
+  <link href="tctrack_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="tctrack_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="tctrack_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="tctrack_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="mermaid-theme" content="neutral">
+  <script src="tctrack_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="tctrack_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="tctrack_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <style>
+  #title-slide .title {
+    font-size: 1.25em;
+    margin-bottom: 0.5em;
+  }
+  #title-slide .quarto-title-authors {
+    font-size: 0.7em;
+    display: block;
+  }
+  #title-slide .quarto-title-author {
+    display: inline-block;
+  }
+  #title-slide .quarto-title-affiliation {
+    display: none;
+  }
+  #title-slide .quarto-title-authors::after {
+    content: "Institute of Computing for Climate Science, University of Cambridge, UK";
+    display: block;
+    margin-top: 0.5em;
+  }
+  #title-slide .title::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 550px;
+    height: 175px;
+    background: url('images/TCTrack_Logo.svg') no-repeat center/contain;
+  }
+  .fair-output-box {
+    box-sizing: border-box;
+    overflow: auto;
+    border: 1px solid currentColor;
+    padding: 0.25em;
+    font-size: 0.8em;
+  }
+  .fair-output-box pre {
+    margin: 0;
+  }
+  .fair-output-box pre > code {
+    white-space: pre;
+  }
+  .reveal pre.metadata-height code {
+    max-height: 40ex;
+  }
+  .reveal .slides section h2 {
+    margin-bottom: 1ex;
+  }
+  .reveal .small-mermaid svg {
+    transform: scale(2);
+  }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title"><br><br>TCTrack: Working with researchers to enable FAIR tropical cyclone tracking</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Sam Avis 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Jack Atkinson 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Simon Sadler 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Surbhi Goel 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Charles Powell 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Alison Ming 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-09-10</p>
+</section>
+<section id="the-starting-problem" class="slide level2">
+<h2>The starting problem</h2>
+<p><strong>Topic:</strong> Identifying tropical cyclone tracks from gridded data (simulations, forecasts, historical reanalysis data)</p>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Problem:</strong></p>
+<ul>
+<li>Multiple tracking algorithms exist, but give different results.</li>
+<li>We want a code that implements them with a unified interface.</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/TCTrack_HM.png" style="width:92.0%" alt="Map showing tropical cyclone tracks"></p>
+<figcaption>Tropical cyclone tracks identified in climate-model data</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="applying-rse-expertise---dont-reinvent-the-wheel" class="slide level2">
+<h2>Applying RSE expertise - Don’t reinvent the wheel</h2>
+<p><strong>Initial plan:</strong> Reimplement tracking algorithms in Python - researchers did not have full knowledge of existing domain software.</p>
+<p>Also, existing codes were not necessarily well documented / work on all systems.</p>
+<p><br></p>
+<p><strong>New plan:</strong> Understand and build on what is already there to improve code sustainability - RSE expertise needed.</p>
+</section>
+<section id="applying-rse-expertise---the-framework" class="slide level2">
+<h2>Applying RSE expertise - The framework</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    
+    subgraph User
+    I[(Input data)]
+    P[Tracker parameters]
+    end
+    I --&gt; T[TCTrack]
+    P --&gt; T
+    T --&gt; A[External tracking algorithm]
+    A --&gt; T
+    T --&gt; O[(Output data)]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li>TCTrack only needs an interface and parameters for each tracking algorithm.</li>
+<li>Easily extensible to encourage community contributions.</li>
+</ul>
+</section>
+<section id="building-domain-experience" class="slide level2">
+<h2>Building domain experience</h2>
+<p>To wrap the tracking algorithms, we had to gain an understanding of them rather than treating them as black boxes.</p>
+<p>We were able to identify themes across algorithms.</p>
+<p>e.g.&nbsp;Broadly 3 main steps:</p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[Preprocessing] --&gt; B[Detection]
+    B --&gt; C[Stitching]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="building-domain-experience-1" class="slide level2">
+<h2>Building domain experience</h2>
+<div style="font-size: 0.8em;">
+<p>We want to expose as many parameters and functionality from the underlying code as possible.</p>
+</div>
+<div style="max-height: 20ex; overflow-y: auto; font-size: 0.62em;">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>detect_params <span class="op">=</span> te.TEDetectParameters(</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>    search_by_min<span class="op">=</span><span class="st">"msl"</span>,</span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>    time_filter<span class="op">=</span><span class="st">"6hr"</span>,</span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>    merge_dist<span class="op">=</span><span class="fl">6.0</span>,</span>
+<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>    closed_contours<span class="op">=</span>[</span>
+<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEContour(var<span class="op">=</span><span class="st">"msl"</span>, delta<span class="op">=</span><span class="fl">200.0</span>, dist<span class="op">=</span><span class="fl">5.5</span>),</span>
+<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEContour(var<span class="op">=</span><span class="st">"_DIFF(zg(300hPa),zg(500hPa))"</span>, delta<span class="op">=-</span><span class="fl">6.0</span>, dist<span class="op">=</span><span class="fl">6.5</span>, minmaxdist<span class="op">=</span><span class="fl">1.0</span>),</span>
+<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb1-9"><a href="" aria-hidden="true" tabindex="-1"></a>    output_commands<span class="op">=</span>[</span>
+<span id="cb1-10"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEOutputCommand(var<span class="op">=</span><span class="st">"msl"</span>, operator<span class="op">=</span><span class="st">"min"</span>),</span>
+<span id="cb1-11"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEOutputCommand(var<span class="op">=</span><span class="st">"orog"</span>, operator<span class="op">=</span><span class="st">"max"</span>),</span>
+<span id="cb1-12"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEOutputCommand(var<span class="op">=</span><span class="st">"si10"</span>, operator<span class="op">=</span><span class="st">"max"</span>, dist<span class="op">=</span><span class="fl">2.0</span>),</span>
+<span id="cb1-13"><a href="" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb1-14"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-15"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="" aria-hidden="true" tabindex="-1"></a>stitch_params <span class="op">=</span> te.TEStitchParameters(</span>
+<span id="cb1-17"><a href="" aria-hidden="true" tabindex="-1"></a>    caltype<span class="op">=</span><span class="st">"360_day"</span>,</span>
+<span id="cb1-18"><a href="" aria-hidden="true" tabindex="-1"></a>    max_sep<span class="op">=</span><span class="fl">8.0</span>,</span>
+<span id="cb1-19"><a href="" aria-hidden="true" tabindex="-1"></a>    min_time<span class="op">=</span><span class="st">"54h"</span>,</span>
+<span id="cb1-20"><a href="" aria-hidden="true" tabindex="-1"></a>    max_gap<span class="op">=</span><span class="st">"24h"</span>,</span>
+<span id="cb1-21"><a href="" aria-hidden="true" tabindex="-1"></a>    min_endpoint_dist<span class="op">=</span><span class="fl">8.0</span>,</span>
+<span id="cb1-22"><a href="" aria-hidden="true" tabindex="-1"></a>    threshold_filters<span class="op">=</span>[</span>
+<span id="cb1-23"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEThreshold(var<span class="op">=</span><span class="st">"latitude"</span>, op<span class="op">=</span><span class="st">"&lt;="</span>, value<span class="op">=</span><span class="dv">50</span>, count<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb1-24"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEThreshold(var<span class="op">=</span><span class="st">"latitude"</span>, op<span class="op">=</span><span class="st">"&gt;="</span>, value<span class="op">=-</span><span class="dv">50</span>, count<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb1-25"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEThreshold(var<span class="op">=</span><span class="st">"orog"</span>, op<span class="op">=</span><span class="st">"&lt;="</span>, value<span class="op">=</span><span class="dv">150</span>, count<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb1-26"><a href="" aria-hidden="true" tabindex="-1"></a>        te.TEThreshold(var<span class="op">=</span><span class="st">"si10"</span>, op<span class="op">=</span><span class="st">"&gt;="</span>, value<span class="op">=</span><span class="dv">10</span>, count<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb1-27"><a href="" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb1-28"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="font-size: 0.8em;">
+<p>Equally, we want to keep it simple to use - e.g.&nbsp;default parameter sets.</p>
+</div>
+<div style="max-height: 330px; overflow-y: auto; font-size: 0.62em;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>detect_params, stitch_params <span class="op">=</span> te.parameter_set(<span class="st">"UZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To do this we need a good understanding of how the codes work and how the algorithms are used in research.</p>
+</section>
+<section id="fair-outputs-the-problem" class="slide level2">
+<h2>FAIR outputs: the problem</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fair-output-box" style="max-height: 15ex;">
+<pre class="plaintext"><code>start     2  1950     1     4     0
+   54.67  -22.15   16.65  999.23   0.00027446  1950     1     4     0
+   55.72  -24.49   17.38  997.83   0.00031078  1950     1     5     0
+start    13  1950     1     6     0
+   67.32   -9.26   17.90 1002.11   0.00065708  1950     1     6     0
+   67.68   -9.26   15.32 1003.88   0.00044106  1950     1     7     0
+...</code></pre>
+</div>
+<div class="fair-output-box" style="max-height: 15ex;">
+<pre class="plaintext"><code>track_id, year, month, day, hour, i, j, lon, lat, psl, orog, sfcWind
+0, 1950, 1, 1, 6, 572, 320, 201.269531, -14.882813, 1.003118e+05, 0.000000e+00, 1.389075e+01
+0, 1950, 1, 1, 12, 569, 318, 200.214844, -15.351562, 1.001075e+05, 0.000000e+00, 1.546506e+01
+0, 1950, 1, 1, 18, 567, 317, 199.511719, -15.585937, 1.001445e+05, 0.000000e+00, 1.590697e+01
+0, 1950, 1, 2, 0, 565, 320, 198.808594, -14.882813, 1.000154e+05, 0.000000e+00, 1.531368e+01
+...</code></pre>
+</div>
+<div class="fair-output-box" style="max-height: 15ex;">
+<pre class="plaintext"><code>netcdf ff_trs.test_out {
+dimensions:
+        tracks = 703 ;
+        record = UNLIMITED ; // (78 currently)
+variables:
+        int TRACK_ID(tracks) ;
+                TRACK_ID:add_fld_num = 0 ;
+                TRACK_ID:tot_add_fld_num = 0 ;
+                TRACK_ID:loc_flags = "" ;
+        int FIRST_PT(tracks) ;
+        int NUM_PTS(tracks) ;
+        int index(record) ;
+        int time(record) ;
+        float longitude(record) ;
+        float latitude(record) ;
+        float intensity(record) ;
+}</code></pre>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Different format for every algorithm</li>
+<li>Unclear what each value represents</li>
+<li>Limited metadata</li>
+<li>Cannot reproduce</li>
+</ul>
+</div></div>
+</section>
+<section id="fair-outputs-standardised-format" class="slide level2">
+<h2>FAIR outputs: standardised format</h2>
+<p>All TCTrack outputs are converted into CF-Compliant NetCDF.</p>
+<p>Again build on existing software by heavily relying on cf-python (Thanks to the NCAS RSE team!)</p>
+<!-- ```{.json .code-overflow-scroll style="font-size: 0.7em; max-height: 30ex; overflow: auto;"} -->
+<div class="sourceCode" id="cb6" style="font-size: 0.7em;"><pre class="sourceCode json code-overflow-scroll metadata-height code-with-copy"><code class="sourceCode json"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="er">netcdf</span> <span class="er">my_tracks</span> <span class="fu">{</span></span>
+<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="er">dimensions</span><span class="fu">:</span></span>
+<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">trajectory</span> <span class="er">=</span> <span class="dv">36</span> <span class="er">;</span></span>
+<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">observation</span> <span class="er">=</span> <span class="dv">60</span> <span class="er">;</span></span>
+<span id="cb6-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="er">variables:</span></span>
+<span id="cb6-6"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">int64</span> <span class="er">trajectory(trajectory)</span> <span class="er">;</span></span>
+<span id="cb6-7"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">trajectory:standard_name</span> <span class="er">=</span> <span class="st">"trajectory"</span> <span class="er">;</span></span>
+<span id="cb6-8"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">trajectory:cf_role</span> <span class="er">=</span> <span class="st">"trajectory_id"</span> <span class="er">;</span></span>
+<span id="cb6-9"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">trajectory:long_name</span> <span class="er">=</span> <span class="st">"trajectory index"</span> <span class="er">;</span></span>
+<span id="cb6-10"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">int64</span> <span class="er">observation(observation)</span> <span class="er">;</span></span>
+<span id="cb6-11"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">observation:standard_name</span> <span class="er">=</span> <span class="st">"observation"</span> <span class="er">;</span></span>
+<span id="cb6-12"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">observation:long_name</span> <span class="er">=</span> <span class="st">"observation index"</span> <span class="er">;</span></span>
+<span id="cb6-13"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">time(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-14"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">time</span><span class="fu">:</span><span class="er">standard_name</span> <span class="er">=</span> <span class="st">"time"</span> <span class="er">;</span></span>
+<span id="cb6-15"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">time:long_name</span> <span class="er">=</span> <span class="st">"time"</span> <span class="er">;</span></span>
+<span id="cb6-16"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">time:units</span> <span class="er">=</span> <span class="st">"days since 1970-01-01"</span> <span class="er">;</span></span>
+<span id="cb6-17"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">time:calendar</span> <span class="er">=</span> <span class="st">"360_day"</span> <span class="er">;</span></span>
+<span id="cb6-18"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">lat(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-19"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">lat</span><span class="fu">:</span><span class="er">standard_name</span> <span class="er">=</span> <span class="st">"lat"</span> <span class="er">;</span></span>
+<span id="cb6-20"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">lat:long_name</span> <span class="er">=</span> <span class="st">"latitude"</span> <span class="er">;</span></span>
+<span id="cb6-21"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">lat:units</span> <span class="er">=</span> <span class="st">"degrees_north"</span> <span class="er">;</span></span>
+<span id="cb6-22"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">lon(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-23"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">lon</span><span class="fu">:</span><span class="er">standard_name</span> <span class="er">=</span> <span class="st">"lon"</span> <span class="er">;</span></span>
+<span id="cb6-24"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">lon:long_name</span> <span class="er">=</span> <span class="st">"longitude"</span> <span class="er">;</span></span>
+<span id="cb6-25"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">lon:units</span> <span class="er">=</span> <span class="st">"degrees_east"</span> <span class="er">;</span></span>
+<span id="cb6-26"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">grid_i(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-27"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">grid_i</span><span class="fu">:</span><span class="er">long_name</span> <span class="er">=</span> <span class="st">"longitudinal grid index"</span> <span class="er">;</span></span>
+<span id="cb6-28"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">grid_i:coordinates</span> <span class="er">=</span> <span class="st">"time lat lon"</span> <span class="er">;</span></span>
+<span id="cb6-29"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">grid_j(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-30"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">grid_j</span><span class="fu">:</span><span class="er">long_name</span> <span class="er">=</span> <span class="st">"latitudinal grid index"</span> <span class="er">;</span></span>
+<span id="cb6-31"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">grid_j:coordinates</span> <span class="er">=</span> <span class="st">"time lat lon"</span> <span class="er">;</span></span>
+<span id="cb6-32"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">air_pressure_at_sea_level(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-33"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">air_pressure_at_sea_level</span><span class="fu">:</span><span class="er">standard_name</span> <span class="er">=</span> <span class="st">"air_pressure_at_sea_level"</span> <span class="er">;</span></span>
+<span id="cb6-34"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">air_pressure_at_sea_level:long_name</span> <span class="er">=</span> <span class="st">"Sea Level Pressure"</span> <span class="er">;</span></span>
+<span id="cb6-35"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">air_pressure_at_sea_level:units</span> <span class="er">=</span> <span class="st">"Pa"</span> <span class="er">;</span></span>
+<span id="cb6-36"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">air_pressure_at_sea_level:coordinates</span> <span class="er">=</span> <span class="st">"time lat lon"</span> <span class="er">;</span></span>
+<span id="cb6-37"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">air_pressure_at_sea_level:cell_methods</span> <span class="er">=</span> <span class="st">"area: point"</span> <span class="er">;</span></span>
+<span id="cb6-38"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">surface_altitude(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-39"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">surface_altitude</span><span class="fu">:</span><span class="er">standard_name</span> <span class="er">=</span> <span class="st">"surface_altitude"</span> <span class="er">;</span></span>
+<span id="cb6-40"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">surface_altitude:long_name</span> <span class="er">=</span> <span class="st">"Surface Altitude"</span> <span class="er">;</span></span>
+<span id="cb6-41"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">surface_altitude:units</span> <span class="er">=</span> <span class="st">"m"</span> <span class="er">;</span></span>
+<span id="cb6-42"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">surface_altitude:coordinates</span> <span class="er">=</span> <span class="st">"time lat lon"</span> <span class="er">;</span></span>
+<span id="cb6-43"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">surface_altitude:cell_methods</span> <span class="er">=</span> <span class="st">"area: point"</span> <span class="er">;</span></span>
+<span id="cb6-44"><a href="" aria-hidden="true" tabindex="-1"></a>        <span class="er">double</span> <span class="er">wind_speed(trajectory</span><span class="fu">,</span> <span class="er">observation)</span> <span class="er">;</span></span>
+<span id="cb6-45"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">wind_speed</span><span class="fu">:</span><span class="er">standard_name</span> <span class="er">=</span> <span class="st">"wind_speed"</span> <span class="er">;</span></span>
+<span id="cb6-46"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">wind_speed:long_name</span> <span class="er">=</span> <span class="st">"Near-Surface Wind Speed"</span> <span class="er">;</span></span>
+<span id="cb6-47"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">wind_speed:units</span> <span class="er">=</span> <span class="st">"m s-1"</span> <span class="er">;</span></span>
+<span id="cb6-48"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">wind_speed:coordinates</span> <span class="er">=</span> <span class="st">"time lat lon"</span> <span class="er">;</span></span>
+<span id="cb6-49"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">wind_speed:cell_methods</span> <span class="er">=</span> <span class="st">"area: maximum (great circle of radius 2.0 degrees)"</span> <span class="er">;</span></span>
+<span id="cb6-50"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-51"><a href="" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">global</span> <span class="er">attributes:</span></span>
+<span id="cb6-52"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">:Conventions</span> <span class="er">=</span> <span class="st">"CF-1.12"</span> <span class="er">;</span></span>
+<span id="cb6-53"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">:featureType</span> <span class="er">=</span> <span class="st">"trajectory"</span> <span class="er">;</span></span>
+<span id="cb6-54"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">:tctrack_version</span> <span class="er">=</span> <span class="st">"0.3"</span> <span class="er">;</span></span>
+<span id="cb6-55"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">:tctrack_tracker</span> <span class="er">=</span> <span class="st">"TETracker"</span> <span class="er">;</span></span>
+<span id="cb6-56"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">:detect_nodes_parameters</span> <span class="er">=</span> <span class="st">"{</span><span class="ch">\"</span><span class="st">in_data</span><span class="ch">\"</span><span class="st">: [</span><span class="ch">\"</span><span class="st">psl_data.nc</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">zg_data.nc</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">orog_data.nc</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">sfcWind_data.nc</span><span class="ch">\"</span><span class="st">], </span><span class="ch">\"</span><span class="st">out_header</span><span class="ch">\"</span><span class="st">: true, </span><span class="ch">\"</span><span class="st">output_file</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">nodes_out.dat</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">search_by_min</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">psl</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">search_by_max</span><span class="ch">\"</span><span class="st">: null, </span><span class="ch">\"</span><span class="st">closed_contours</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">psl</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">delta</span><span class="ch">\"</span><span class="st">: 200.0, </span><span class="ch">\"</span><span class="st">dist</span><span class="ch">\"</span><span class="st">: 5.5, </span><span class="ch">\"</span><span class="st">minmaxdist</span><span class="ch">\"</span><span class="st">: 0.0}, {</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">zgdiff</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">delta</span><span class="ch">\"</span><span class="st">: -6.0, </span><span class="ch">\"</span><span class="st">dist</span><span class="ch">\"</span><span class="st">: 6.5, </span><span class="ch">\"</span><span class="st">minmaxdist</span><span class="ch">\"</span><span class="st">: 1.0}], </span><span class="ch">\"</span><span class="st">merge_dist</span><span class="ch">\"</span><span class="st">: 6.0, </span><span class="ch">\"</span><span class="st">time_filter</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">6hr</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">lat_name</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">lat</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">lon_name</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">lon</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">min_lat</span><span class="ch">\"</span><span class="st">: 0.0, </span><span class="ch">\"</span><span class="st">max_lat</span><span class="ch">\"</span><span class="st">: 0.0, </span><span class="ch">\"</span><span class="st">min_lon</span><span class="ch">\"</span><span class="st">: 0.0, </span><span class="ch">\"</span><span class="st">max_lon</span><span class="ch">\"</span><span class="st">: 0.0, </span><span class="ch">\"</span><span class="st">regional</span><span class="ch">\"</span><span class="st">: false, </span><span class="ch">\"</span><span class="st">output_commands</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">psl</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">operator</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">min</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">dist</span><span class="ch">\"</span><span class="st">: 0.0}, {</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">orog</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">operator</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">max</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">dist</span><span class="ch">\"</span><span class="st">: 0.0}, {</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">sfcWind</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">operator</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">max</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">dist</span><span class="ch">\"</span><span class="st">: 2.0}]}"</span> <span class="er">;</span></span>
+<span id="cb6-57"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="er">:stitch_nodes_parameters</span> <span class="er">=</span> <span class="st">"{</span><span class="ch">\"</span><span class="st">output_file</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">tracks_out.txt</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">in_file</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">nodes_out.dat</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">in_list</span><span class="ch">\"</span><span class="st">: null, </span><span class="ch">\"</span><span class="st">in_fmt</span><span class="ch">\"</span><span class="st">: [</span><span class="ch">\"</span><span class="st">lon</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">lat</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">psl</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">orog</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">sfcWind</span><span class="ch">\"</span><span class="st">], </span><span class="ch">\"</span><span class="st">allow_repeated_times</span><span class="ch">\"</span><span class="st">: false, </span><span class="ch">\"</span><span class="st">caltype</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">360_day</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">time_begin</span><span class="ch">\"</span><span class="st">: null, </span><span class="ch">\"</span><span class="st">time_end</span><span class="ch">\"</span><span class="st">: null, </span><span class="ch">\"</span><span class="st">max_sep</span><span class="ch">\"</span><span class="st">: 8.0, </span><span class="ch">\"</span><span class="st">max_gap</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">24h</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">min_time</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">54h</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">min_endpoint_dist</span><span class="ch">\"</span><span class="st">: 8.0, </span><span class="ch">\"</span><span class="st">min_path_dist</span><span class="ch">\"</span><span class="st">: 0, </span><span class="ch">\"</span><span class="st">threshold_filters</span><span class="ch">\"</span><span class="st">: [{</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">lat</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">op</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">&lt;=</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 50, </span><span class="ch">\"</span><span class="st">count</span><span class="ch">\"</span><span class="st">: 10}, {</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">lat</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">op</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">&gt;=</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: -50, </span><span class="ch">\"</span><span class="st">count</span><span class="ch">\"</span><span class="st">: 10}, {</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">orog</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">op</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">&lt;=</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 150, </span><span class="ch">\"</span><span class="st">count</span><span class="ch">\"</span><span class="st">: 10}, {</span><span class="ch">\"</span><span class="st">var</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">sfcWind</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">op</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">&gt;=</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">value</span><span class="ch">\"</span><span class="st">: 10, </span><span class="ch">\"</span><span class="st">count</span><span class="ch">\"</span><span class="st">: 10}], </span><span class="ch">\"</span><span class="st">prioritize</span><span class="ch">\"</span><span class="st">: null, </span><span class="ch">\"</span><span class="st">add_velocity</span><span class="ch">\"</span><span class="st">: false, </span><span class="ch">\"</span><span class="st">out_file_format</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">gfdl</span><span class="ch">\"</span><span class="st">, </span><span class="ch">\"</span><span class="st">out_seconds</span><span class="ch">\"</span><span class="st">: false}"</span> <span class="er">;</span></span>
+<span id="cb6-58"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fair-outputs-metadata" class="slide level2">
+<h2>FAIR outputs: metadata</h2>
+<p>Included metadata:</p>
+<ul>
+<li>Variable metadata (copied from input files)</li>
+<li>TCTrack metadata
+<ul>
+<li>Version</li>
+<li>Tracking algorithm</li>
+<li>Tracking parameters</li>
+</ul></li>
+</ul>
+<p>Solves the familiar problem: “How did we get this result?”</p>
+</section>
+<section id="fair-outputs-reproducibility" class="slide level2">
+<h2>FAIR outputs: reproducibility</h2>
+<p>The metadata is machine-readable, further simplifying reproduction:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tctrack.utils <span class="im">import</span> load_tracker_metadata</span>
+<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>tracker, params <span class="op">=</span> load_tracker_metadata(<span class="st">"tracks_output.nc"</span>)</span>
+<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>tracker.run_tracker(<span class="st">"tracks_output_2.nc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
+<ol type="1">
+<li><strong>RSE support</strong> helped to create a more useful software for the community.</li>
+<li><strong>Domain knowledge</strong> helped us improve ease of use for researchers’ workflows.</li>
+<li><strong>FAIR outputs</strong> improve the usability of research outputs.</li>
+</ol>
+<div class="columns">
+<div class="column" style="width: 60%; font-size: 0.7em">
+<p><br> <a href="https://github.com/Cambridge-ICCS/TCTrack">github.com/Cambridge-ICCS/TCTrack</a> <br><br> <a href="https://tctrack.readthedocs.io">tctrack.readthedocs.io</a></p>
+</div><div class="column" style="width: 40%; text-align: center;">
+<p><img data-src="images/inigo_inspire.png" style="width:60.0%" alt="INIGO and InSPIRe logos"> <img data-src="images/schmidtsciences_primary_color.png" style="width:60.0%" alt="Scmidt Sciences logo"></p>
+</div></div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/UCAM_ICCS_Logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="tctrack_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="tctrack_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="tctrack_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
