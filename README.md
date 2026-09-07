@@ -1,3 +1,5 @@
+View the [slides online](https://sjavis.github.io/slides/tctrack-rsecon-2026-09-10).
+
 To render the slides use the `render.sh` script. They will be put in the `_slides`
 directory.
 ```
