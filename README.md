@@ -3,6 +3,7 @@ View the [slides online](https://sjavis.github.io/slides/tctrack-rsecon-2026-09-
 Run the following to install the required quarto extensions:
 ```
 quarto add quarto-ext/fontawesome
+quarto add quarto-ext/attribution
 ```
 
 To render the slides use the `render.sh` script. They will be put in the `_slides`

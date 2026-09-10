@@ -16,6 +16,8 @@ format:
     code-line-numbers: false
     logo: images/UCAM_ICCS_Logo.png
     theme: simple
+revealjs-plugins:
+  - attribution
 mermaid:
   theme: neutral
 authors:
@@ -109,12 +111,17 @@ Identifying tropical cyclone tracks from gridded data (simulations, forecasts, h
 ::: {.column width="45%"}
 ![](images/tc_track_basin_comparison.png){fig-alt="TC track frequency and duration per model for different regions"}
 :::
+
 ::: {.column width="55%"}
 - Multiple tracking algorithms exist, but give different results.
 - Each are different and difficult to learn --- many researchers will stick with just one.
 - We want a code that implements them with a unified interface.
 :::
 ::::
+
+::: {.attribution}
+Boudin et al., Geosci. Model Dev. 15, 6759-6786, 2022
+:::
 
 ## Applying RSE expertise - Don't reinvent the wheel
 
