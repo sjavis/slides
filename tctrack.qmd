@@ -123,6 +123,8 @@ Identifying tropical cyclone tracks from gridded data (simulations, forecasts, h
 Boudin et al., Geosci. Model Dev. 15, 6759-6786, 2022
 :::
 
+# Applying RSE expertise
+
 ## Applying RSE expertise - Don't reinvent the wheel
 
 **Initial plan:** Reimplement tracking algorithms in Python - researchers did not have full knowledge of existing domain software.
@@ -153,6 +155,8 @@ flowchart LR
 
 - TCTrack only needs an interface and parameters for each tracking algorithm.
 - Easily extensible to encourage community contributions.
+
+# Building domain experience
 
 ## Building domain experience
 
@@ -225,6 +229,8 @@ detect_params, stitch_params = te.parameter_set("UZ")
 <br>
 
 To do this we need a good understanding of how the codes work and how the algorithms are used in research.
+
+# FAIR outputs
 
 ## FAIR outputs: the problem
 
