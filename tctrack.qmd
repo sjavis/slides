@@ -120,7 +120,7 @@ Identifying tropical cyclone tracks from gridded data (simulations, forecasts, h
 ::::
 
 ::: {.attribution}
-Boudin et al., Geosci. Model Dev. 15, 6759-6786, 2022
+[Boudin et al., Geosci. Model Dev. 15, 6759-6786, 2022](https://doi.org/10.5194/gmd-15-6759-2022) [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.en)
 :::
 
 # Applying RSE expertise
