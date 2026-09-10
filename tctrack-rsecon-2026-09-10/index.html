@@ -107,6 +107,7 @@
   <link href="tctrack_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="tctrack_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="tctrack_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="tctrack_files/libs/revealjs/plugin/reveal-attribution/attribution.css" rel="stylesheet">
   <link href="tctrack_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -321,6 +322,9 @@ Alison Ming
 <li class="fragment">We want a code that implements them with a unified interface.</li>
 </ul>
 </div></div>
+<div class="attribution">
+<p>Boudin et al., Geosci. Model Dev. 15, 6759-6786, 2022</p>
+</div>
 </section>
 <section id="applying-rse-expertise---dont-reinvent-the-wheel" class="slide level2">
 <h2>Applying RSE expertise - Don’t reinvent the wheel</h2>
@@ -605,6 +609,7 @@ variables:
   <script src="tctrack_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="tctrack_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="tctrack_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="tctrack_files/libs/revealjs/plugin/reveal-attribution/attribution.js"></script>
   <script src="tctrack_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -797,7 +802,7 @@ variables:
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealAttribution, QuartoSupport,
 
           RevealMath,
           RevealNotes,
