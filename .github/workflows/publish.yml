@@ -22,7 +22,10 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render slides
-        run: quarto render
+        run: quarto render --output-dir _site --output index.html
+
+      - name: Check output
+        run: ls -la && find . -maxdepth 2 -type d
 
       - name: Deploy to GitHub pages
         uses: JamesIves/github-pages-deploy-action@v4
