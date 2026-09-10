@@ -5,6 +5,7 @@ output-file: index
 title: "<br><br>TCTrack: Working with researchers to enable FAIR tropical cyclone tracking"
 format:
   revealjs:
+    incremental: true
     embed-resources: false
     slide-number: false
     chalkboard: false
@@ -79,23 +80,39 @@ include-in-header:
       .reveal .small-mermaid svg {
         transform: scale(2);
       }
+      #vcenter {
+        vertical-align: middle;
+      }
       </style>
 ---
 
-## The starting problem
-**Topic:** Identifying tropical cyclone tracks from gridded data (simulations, forecasts, historical reanalysis data)
+## Topic
+Identifying tropical cyclone tracks from gridded data (simulations, forecasts, historical reanalysis data)
 
 <br>
 
 :::: {.columns}
-::: {.column width="55%"}
-**Problem:**
-
-- Multiple tracking algorithms exist, but give different results.
-- We want a code that implements them with a unified interface.
+::: {.column #vcenter width="45%"}
+![](images/psl_image.png){fig-alt="Map showing sea level pressure"}
 :::
+::: {.column #vcenter width="10%"}
+⟶
+:::
+::: {.column #vcenter width="45%"}
+![](images/TCTrack_HM.png){fig-alt="Map showing tropical cyclone tracks"}
+:::
+::::
+
+## The research problem
+
+:::: {.columns}
 ::: {.column width="45%"}
-![Tropical cyclone tracks identified in climate-model data](images/TCTrack_HM.png){width=92% fig-alt="Map showing tropical cyclone tracks"}
+![](images/tc_track_basin_comparison.png){fig-alt="TC track frequency and duration per model for different regions"}
+:::
+::: {.column width="55%"}
+- Multiple tracking algorithms exist, but give different results.
+- Each are different and difficult to learn --- many researchers will stick with just one.
+- We want a code that implements them with a unified interface.
 :::
 ::::
 
@@ -107,7 +124,9 @@ Also, existing codes were not necessarily well documented / work on all systems.
 
 <br>
 
-**New plan:** Understand and build on what is already there to improve code sustainability - RSE expertise needed.
+::: {.fragment}
+**New plan:** Understand and build on existing codes to improve code sustainability --- RSE expertise needed.
+:::
 
 ## Applying RSE expertise - The framework
 
@@ -134,6 +153,7 @@ To wrap the tracking algorithms, we had to gain an understanding of them rather 
 
 We were able to identify themes across algorithms.
 
+::: {.fragment}
 e.g. Broadly 3 main steps:
 
 ```{mermaid}
@@ -141,6 +161,7 @@ flowchart LR
     A[Preprocessing] --> B[Detection]
     B --> C[Stitching]
 ```
+:::
 
 
 ## Building domain experience
@@ -149,7 +170,7 @@ flowchart LR
 We want to expose as many parameters and functionality from the underlying code as possible.
 :::
 
-::: {style="max-height: 20ex; overflow-y: auto; font-size: 0.62em;"}
+::: {style="max-height: 42ex; overflow-y: auto; font-size: 0.62em;"}
 ```{.python}
 detect_params = te.TEDetectParameters(
     search_by_min="msl",
@@ -182,15 +203,19 @@ stitch_params = te.TEStitchParameters(
 ```
 :::
 
-::: {style="font-size: 0.8em;"}
-Equally, we want to keep it simple to use - e.g. default parameter sets.
-:::
+## Building domain experience
+
+At the same time, we don't want it to be overwhelming and keep it simple to use.
+
+E.g. Using default parameter sets:
 
 ::: {style="max-height: 330px; overflow-y: auto; font-size: 0.62em;"}
 ```{.python}
 detect_params, stitch_params = te.parameter_set("UZ")
 ```
 :::
+
+<br>
 
 To do this we need a good understanding of how the codes work and how the algorithms are used in research.
 
@@ -279,37 +304,37 @@ variables:
                 time:long_name = "time" ;
                 time:units = "days since 1970-01-01" ;
                 time:calendar = "360_day" ;
-        double lat(trajectory, observation) ;
-                lat:standard_name = "lat" ;
-                lat:long_name = "latitude" ;
-                lat:units = "degrees_north" ;
-        double lon(trajectory, observation) ;
-                lon:standard_name = "lon" ;
-                lon:long_name = "longitude" ;
-                lon:units = "degrees_east" ;
+        double latitude(trajectory, observation) ;
+                latitude:standard_name = "latitude" ;
+                latitude:long_name = "latitude" ;
+                latitude:units = "degrees_north" ;
+        double longitude(trajectory, observation) ;
+                longitude:standard_name = "longitude" ;
+                longitude:long_name = "longitude" ;
+                longitude:units = "degrees_east" ;
         double grid_i(trajectory, observation) ;
                 grid_i:long_name = "longitudinal grid index" ;
-                grid_i:coordinates = "time lat lon" ;
+                grid_i:coordinates = "time latitude longitude" ;
         double grid_j(trajectory, observation) ;
                 grid_j:long_name = "latitudinal grid index" ;
-                grid_j:coordinates = "time lat lon" ;
+                grid_j:coordinates = "time latitude longitude" ;
         double air_pressure_at_sea_level(trajectory, observation) ;
                 air_pressure_at_sea_level:standard_name = "air_pressure_at_sea_level" ;
                 air_pressure_at_sea_level:long_name = "Sea Level Pressure" ;
                 air_pressure_at_sea_level:units = "Pa" ;
-                air_pressure_at_sea_level:coordinates = "time lat lon" ;
+                air_pressure_at_sea_level:coordinates = "time latitude longitude" ;
                 air_pressure_at_sea_level:cell_methods = "area: point" ;
         double surface_altitude(trajectory, observation) ;
                 surface_altitude:standard_name = "surface_altitude" ;
                 surface_altitude:long_name = "Surface Altitude" ;
                 surface_altitude:units = "m" ;
-                surface_altitude:coordinates = "time lat lon" ;
+                surface_altitude:coordinates = "time latitude longitude" ;
                 surface_altitude:cell_methods = "area: point" ;
         double wind_speed(trajectory, observation) ;
                 wind_speed:standard_name = "wind_speed" ;
                 wind_speed:long_name = "Near-Surface Wind Speed" ;
                 wind_speed:units = "m s-1" ;
-                wind_speed:coordinates = "time lat lon" ;
+                wind_speed:coordinates = "time latitude longitude" ;
                 wind_speed:cell_methods = "area: maximum (great circle of radius 2.0 degrees)" ;
 
 // global attributes:
@@ -333,8 +358,6 @@ Included metadata:
   - Tracking algorithm
   - Tracking parameters
 
-Solves the familiar problem: "How did we get this result?"
-
 ## FAIR outputs: reproducibility
 
 The metadata is machine-readable, further simplifying reproduction:
@@ -345,21 +368,43 @@ tracker, params = load_tracker_metadata("tracks_output.nc")
 tracker.run_tracker("tracks_output_2.nc")
 ```
 
+## Further work - Visualisation dashboard
+
+Standardised outputs enable downstream tooling.
+
+For example a visualisation dashboard (in progress).
+
+:::: {.columns}
+::: {.column width="50%" .fragment}
+First we create a database from the outputs:
+![](images/TCTrack_database.png){fig-alt="Database of TC tracks"}
+:::
+
+::: {.column width="50%" .fragment}
+Then produce a dashboard with stats and visualisations:
+![](images/TCTrack_dashboard_globe.png){fig-alt="TC tracks on a globe"}
+:::
+::::
+
 ## Conclusions
 
 1. **RSE support** helped to create a more useful software for the community.
 2. **Domain knowledge** helped us improve ease of use for researchers' workflows.
-3. **FAIR outputs** improve the usability of research outputs.
+3. **FAIR outputs** improve the (re)usability of research outputs.
+
+# Thank you!
 
 :::: {.columns}
 ::: {.column style="width: 60%; font-size: 0.7em"}
 <br>
-[github.com/Cambridge-ICCS/TCTrack](https://github.com/Cambridge-ICCS/TCTrack)
+[{{< fa solid envelope >}} sa2329@cam.ac.uk](mailto:sa2329@cam.ac.uk)
 <br><br>
-[tctrack.readthedocs.io](https://tctrack.readthedocs.io)
+[{{< fa brands github >}} Cambridge-ICCS/TCTrack](https://github.com/Cambridge-ICCS/TCTrack)
+<br><br>
+[{{< fa solid book >}} tctrack.readthedocs.io](https://tctrack.readthedocs.io)
 :::
 ::: {.column style="width: 40%; text-align: center;"}
-![](images/inigo_inspire.png){width=60% fig-alt="INIGO and InSPIRe logos"}
-![](images/schmidtsciences_primary_color.png){width=60% fig-alt="Scmidt Sciences logo"}
+![](images/inigo_inspire.png){width=80% fig-alt="INIGO and InSPIRe logos"}
+![](images/schmidtsciences_primary_color.png){width=80% fig-alt="Scmidt Sciences logo"}
 :::
 ::::
